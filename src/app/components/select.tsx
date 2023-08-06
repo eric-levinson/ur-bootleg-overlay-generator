@@ -200,8 +200,8 @@ export const Teamselector = (params: { teams: any }) => {
           </div>
         </CardBody>
         <Divider />
-        <CardFooter className="flex-row">
-          <div className="basis-8/12 text-center">
+        <CardFooter className="flex-row justify-evenly">
+          <div className="flex-none text-center">
             <h2 className="text-2xl font-bold underline">Step 1</h2>
             <p className="">
               Add this URL as an OBS browser sourse.{" "}

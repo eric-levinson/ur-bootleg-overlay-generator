@@ -11,6 +11,7 @@ import {
   Divider,
   Input,
   Code,
+  Chip,
 } from "@nextui-org/react";
 
 import Link from "next/link";
@@ -89,10 +90,11 @@ export const Teamselector = (params: { teams: any }) => {
     );
   }
 
-
   useEffect(() => {
     setBaseUrl(window.location.origin);
   }, []);
+
+  const handleFocus = (event: any) => event.target.select();
 
   // three columns, one for each team, one for best of
   //tailwindcss grid
@@ -167,104 +169,87 @@ export const Teamselector = (params: { teams: any }) => {
               />
             </div>
           </div>
-          <div className="p-4 grid grid-cols-6 gap-4 mb-4">
+          <div className="p-4 grid grid-cols-3 gap-3 mb-4 text-center">
             <div>
-              <label className="text-gray-200 text-sm font-bold mb-2">
+              <label className="text-gray-200 text-sm font-bold mb-4 mr-2">
                 Home Image Verticality
               </label>
+              <Chip size="md">{homeYvalue}</Chip>
               <Slider
+                className="mt-2"
                 min={-29}
                 max={29}
                 value={homeYvalue}
                 onChange={(value) => setHomeYvalue(value)}
               />
             </div>
-            <div>
-              <Input
-                type="number"
-                isDisabled
-                className=""
-                value={homeYvalue.toString()}
-              />
-            </div>
-            <div></div>
             <div></div>
             <div>
-              <label className="text-gray-200 text-sm font-bold mb-2">
+              <label className="text-gray-200 text-sm font-bold mb-4 mr-2">
                 Away Image Verticality
               </label>
+              <Chip size="md">{awayYvalue}</Chip>
               <Slider
+                className="mt-2"
                 min={-29}
                 max={29}
                 value={awayYvalue}
                 onChange={(value) => setAwayYvalue(value)}
               />
             </div>
-            <div>
-              <Input
-                type="number"
-                isDisabled
-                className=""
-                value={awayYvalue.toString()}
-              />
-            </div>
           </div>
         </CardBody>
         <Divider />
-        <CardFooter>
-          <div className="container">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold underline">Step 1</h2>
-              <p className="">
-                Add this URL as an OBS browser sourse.{" "}
-                <strong>(Width = 1920, Height = 1080)</strong>
-              </p>
-
-              <Code className="ml-2  mr-2" color="primary">
-                {baseUrl + `/gen?home=${home.value}&away=${
-                  away.value
-                }&bestOf=${
-                  bestOf.value
-                }&homeYvalue=${homeYvalue}&awayYvalue=${awayYvalue}`}
-              </Code>
-              <Link
-                className="ml-2"
-                href={{
-                  pathname: "/gen",
-                  query: {
-                    home: home.value,
-                    away: away.value,
-                    bestOf: bestOf.value,
-                    homeYvalue: homeYvalue,
-                    awayYvalue: awayYvalue,
-                  },
-                }}
-                target="_blank"
-              >
-                <Button color="primary" size="sm" variant="flat" className="">
-                  Preview
-                </Button>
-              </Link>
-            </div>
-            <div></div>
-            
-          </div>
-          <div className="container text-center">
-          <h2 className="text-2xl font-bold underline">Step 2</h2>
-              <p className="">
-                Extract the zip and add the images in OBS for the series lights.
-              </p>
-              <Link href="/res/Lights.zip">
-                <Button
-                  color="primary"
+        <CardFooter className="flex-row">
+          <div className="basis-8/12 text-center">
+            <h2 className="text-2xl font-bold underline">Step 1</h2>
+            <p className="">
+              Add this URL as an OBS browser sourse.{" "}
+              <strong>(Width = 1920, Height = 1080)</strong>
+            </p>
+            <div className="container">
+              <div className="flex flex-row">
+                <Input
+                  isReadOnly
                   size="sm"
-                  variant="flat"
+                  value={
+                    baseUrl +
+                    `/gen?home=${home.value}&away=${away.value}&bestOf=${bestOf.value}&homeYvalue=${homeYvalue}&awayYvalue=${awayYvalue}`
+                  }
+                  onFocus={handleFocus}
+                />
+                <Link
                   className="ml-2"
+                  href={{
+                    pathname: "/gen",
+                    query: {
+                      home: home.value,
+                      away: away.value,
+                      bestOf: bestOf.value,
+                      homeYvalue: homeYvalue,
+                      awayYvalue: awayYvalue,
+                    },
+                  }}
+                  target="_blank"
                 >
-                  Lights Download
-                </Button>
-              </Link>
+                  <Button color="primary" size="sm" variant="flat" className="">
+                    Preview
+                  </Button>
+                </Link>
+              </div>
             </div>
+          </div>
+          <div className="basis-1/3 text-center">
+            <h2 className="text-2xl font-bold underline">Step 2</h2>
+            <p className="">
+              Extract the zip and add the images in OBS for the series lights.
+            </p>
+            <Link href="/res/Lights.zip">
+              <Button color="primary" size="sm" variant="flat" className="ml-2">
+                Lights Download
+              </Button>
+            </Link>
+          </div>
         </CardFooter>
       </Card>
     </>

@@ -146,8 +146,8 @@ export const Teamselector = (params: { teams: any }) => {
         </div>
 
         <Divider />
-        <CardBody>
-          <div className="grid grid-cols-2 gap-4">
+        <CardBody className="">
+          <div className="h-full grid grid-cols-2 gap-4 content-center">
             <div>
               <LeftGraphic
                 team={teams.filter(
